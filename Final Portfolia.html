@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Madhaw Verma | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #00ffcc;
+      --secondary: #ff00cc;
+      --tertiary: #00d0ff;
+      --background1: #17013e;
+      --background2: #0f0f0f;
+      --background3: #22223b;
+      --text-shadow: 0 2px 10px #00ffcc44, 0 2px 16px #ff00cc33;
+      --box-shadow3d: 0 2px 24px #0ff9, 0 4px 64px #f0c8, 4px 4px 20px 2px #1118, 0 2px 40px #00ffcc33;
+      --gradient1: linear-gradient(135deg, #00ffcc 0%, #ff00cc 70%, #00d0ff 100%);
+      --gradient2: linear-gradient(120deg, #06001f 0%, #140057 40%, #1a196b 80%);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--gradient2);
+      color: #fff;
+      scroll-behavior: smooth;
+      min-height: 100vh;
+      perspective: 1200px;
+      overflow-x: hidden;
+    }
+
+    #intro-screen {
+      height: 100vh;
+      background: linear-gradient(120deg, #0e0032 0%, #310045 80%);
+      color: var(--primary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-family: 'Montserrat', sans-serif;
+      transition: all 0.7s cubic-bezier(.4,2,.6,.7);
+      position: relative;
+      z-index: 100;
+      overflow: hidden;
+    }
+
+    #intro-screen .welcome-3d {
+      font-size: 0;
+      margin-bottom: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: welcomeIn 1.7s cubic-bezier(.3,.8,.4,.98);
+      will-change: transform, opacity;
+    }
+
+    @keyframes welcomeIn {
+      from { opacity: 0; transform: scale(0.5) rotateX(65deg) translateZ(-180px);}
+      50% { opacity: 1; transform: scale(1.09) rotateX(-6deg) translateZ(10px);}
+      to { opacity: 1; transform: scale(1) rotateX(0deg) translateZ(0);}
+    }
+
+    .welcome-gesture {
+      font-size: 70px;
+      line-height: 1.2;
+      display: inline-block;
+      animation: handWave 2.1s ease-in-out infinite alternate;
+      margin: 12px 0;
+      filter: drop-shadow(0 2px 16px #00ffdd88);
+    }
+
+    @keyframes handWave {
+      0% { transform: rotateZ(-20deg) scale(1.08);}
+      20% { transform: rotateZ(20deg) scale(1.13);}
+      35% { transform: rotateZ(-10deg) scale(1.12);}
+      50% { transform: rotateZ(17deg) scale(1.11);}
+      100% { transform: rotateZ(-10deg) scale(1.08);}
+    }
+
+    #intro-screen h1 {
+      font-size: 54px;
+      background: var(--gradient1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-shadow: var(--text-shadow);
+      margin-bottom: 24px;
+      animation: flicker 2.3s infinite alternate;
+      filter: drop-shadow(0 4px 24px #ff00cc99);
+    }
+    @keyframes flicker {
+      0% { opacity: 1;}
+      5% { opacity: 0.85;}
+      10% { opacity: 1;}
+      12% { opacity: 0.91;}
+      15% { opacity: 1;}
+      100% { opacity: 1;}
+    }
+    #intro-screen #enter-btn {
+      padding: 18px 40px;
+      font-size: 28px;
+      font-weight: 700;
+      border: none;
+      border-radius: 50px;
+      background: var(--gradient1);
+      color: #1a003b;
+      box-shadow: 0 0 24px var(--primary), 0 0 48px var(--secondary);
+      cursor: pointer;
+      transition: 0.34s cubic-bezier(.7,2,.3,.85);
+      margin-top: 35px;
+      text-shadow: 0 2px 13px #00ffcc99;
+      animation: scaleIn 1.2s linear;
+    }
+    #intro-screen #enter-btn:hover {
+      background: linear-gradient(-120deg, #ff00cc 10%, #00ffcc 90%);
+      color: #fff;
+      transform: scale(1.1) rotateY(7deg) skewX(5deg);
+      box-shadow: 0 0 32px #ff00ccAA, 0 0 64px #00ffcc99;
+      letter-spacing: 2px;
+      filter: brightness(1.2);
+    }
+    @keyframes scaleIn {
+      from {transform: scale(0.65);}
+      to {transform: scale(1);}
+    }
+
+    #main-content {
+      display: none;
+      opacity: 0;
+      animation: fadeIn3d 1.65s cubic-bezier(.09,1,.01,.97) forwards;
+      transform: translateZ(-120px) scale(0.8) rotateX(20deg);
+      will-change: transform, opacity;
+    }
+    .show-main {
+      display: block !important;
+      animation: fadeIn3d 1.3s cubic-bezier(.2,.99,.14,1) forwards;
+    }
+    @keyframes fadeIn3d {
+      0% { opacity: 0; transform: translateZ(-180px) scale(0.3) rotateX(75deg);}
+      80%{ opacity: 1;}
+      100%{opacity: 1; transform: none;}
+    }
+
+    header {
+      background: rgba(16,4,46,0.89);
+      box-shadow: 0 6px 24px #00ffcc33;
+      border-bottom: 2px solid var(--primary);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      padding: 11px 24px 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      transition: box-shadow .45s;
+      backdrop-filter: blur(6px);
+    }
+    header h1 {
+      font-size: 24px;
+      background: var(--gradient1);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+      margin: 0;
+      text-shadow: 0 2px 6px #00ffcc44;
+    }
+
+    nav {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+    nav a {
+      font-size: 32px;
+      font-weight: 600;
+      padding: 5px 11px;
+      border-radius: 22px;
+      background: rgba(10,55,55,0.09);
+      transition: 0.33s;
+      box-shadow: 0 1px 8px #00ffcc12;
+    }
+    nav a:hover {
+      background-color: #00ffccbb;
+      color: #18033a !important;
+      transform: perspective(200px) rotateY(8deg) scale(1.09);
+      box-shadow: 0 0 22px #ff00cc88;
+    }
+
+    .action-buttons {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-top: 8px;
+      gap: 15px;
+      margin-bottom: 10px;
+    }
+    .hire-button, .resume-button {
+      padding: 10px 22px;
+      border-radius: 33px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      background: var(--gradient1);
+      color: #fff;
+      border: none;
+      box-shadow: 0 2px 12px var(--secondary);
+      transition: 0.32s cubic-bezier(.18,1,.4,1);
+    }
+    .hire-button:hover, .resume-button:hover {
+      background: linear-gradient(-100deg, var(--secondary), var(--primary));
+      color: #230b3e;
+      transform: scale(1.09) skewX(-2deg);
+      filter: brightness(1.2);
+    }
+
+    section {
+      padding: 76px 20px 50px 20px;
+      max-width: 940px;
+      margin: 52px auto;
+      border-radius: 16px;
+      box-shadow: var(--box-shadow3d);
+      background: linear-gradient(140deg, #1a1a25c7, #250030ab 80%);
+      text-align: center;
+      transition: box-shadow 0.45s;
+      /* 3d depth: tilt on hover */
+      transform-style: preserve-3d;
+      will-change: box-shadow, transform;
+    }
+    section:hover {
+      box-shadow: 0 2px 40px #00ffcc, 0 4px 72px #ff00cc21, 6px 4px 30px 0 #151859;
+      transform: rotateY(2deg) scale(1.03);
+      z-index: 10;
+    }
+
+    h2 {
+      font-size: 30px;
+      color: var(--primary);
+      margin-bottom: 20px;
+      background: var(--gradient1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 3px 22px #00ffcc46, 0 2px 14px #ff00cc28;
+      letter-spacing: 1px;
+    }
+
+    p, li {
+      color: #fff;
+      font-size: 18px;
+      line-height: 1.6;
+      text-shadow: 0 1px 6px #2a087940;
+    }
+
+    .skills-list {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 18px;
+      margin-top: 17px;
+      padding-bottom: 6px;
+    }
+    .skills-list li {
+      background: radial-gradient(circle, var(--primary) 0%, var(--background2) 80%);
+      padding: 13px 25px;
+      border-radius: 22px;
+      font-weight: 600;
+      color: #091524;
+      font-size: 1.08em;
+      box-shadow: 0 2px 18px #00ffcc3a;
+      position: relative;
+      transition: 0.32s cubic-bezier(.18,1,.4,1);
+    }
+    .skills-list li:hover {
+      transform: scale(1.15) rotateY(15deg);
+      background: radial-gradient(ellipse, #ff00cc, #00ffcc, #280947 90%);
+      color: #fff;
+      z-index: 2;
+      cursor: pointer;
+    }
+
+    .project, .education-item {
+      background: linear-gradient(120deg, #23233d 0%, #1f1f33 90%);
+      margin: 23px auto;
+      padding: 27px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px #ff00cc21, 0 2px 14px #00ffcc23;
+      transition: transform 0.33s, box-shadow 0.33s;
+      transform-style: preserve-3d;
+      border-left: 4px solid var(--primary);
+      text-align: left;
+    }
+    .project:hover, .education-item:hover {
+      transform: translateY(-9px) scale(1.02) rotateX(7deg);
+      box-shadow: 0 4px 34px #00ffcc48, 0 1px 22px #ff00cc4b;
+    }
+    .education-item h4 {
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 1.2em;
+    }
+    .education-item a {
+      color: var(--secondary);
+      text-decoration: underline;
+      filter: brightness(1.3);
+    }
+    .education-item a:hover {
+      color: var(--primary);
+      text-shadow: 0 0 8px #00ffccbb;
+    }
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 26px;
+      font-size: 28px;
+      margin-top: 19px;
+      margin-bottom: 7px;
+    }
+    .social-icons a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: 0.4s cubic-bezier(.6,.6,.56,1.38);
+      filter: drop-shadow(0 1px 13px #1ac8ad65);
+    }
+    .social-icons a:hover {
+      transform: scale(1.19) rotate3d(1,0.4,0,.24turn);
+      color: var(--secondary);
+      filter: drop-shadow(0 2px 28px #ff00cc) brightness(1.3);
+    }
+    footer {
+      text-align: center;
+      padding: 30px 0 16px 0;
+      color: #aaa;
+      font-size: 17px;
+      background: radial-gradient(ellipse, #250047 40%, #10001b 100%);
+      letter-spacing: 1px;
+      font-weight: 600;
+      filter: blur(.03px);
+      -webkit-box-reflect: below 1px linear-gradient(transparent, #0002 60%);
+      box-shadow: 0 0 10px #00aab855;
+      margin-top: 60px;
+    }
+    /* For dynamic background color animation */
+    body, #intro-screen {
+      animation: bgGradient 6s ease-in-out infinite alternate;
+    }
+    @keyframes bgGradient {
+      0% { background: linear-gradient(120deg, #0e0032 0%, #37032e 80%);}
+      50% { background: linear-gradient(110deg,#21195f 0%, #101076 85%);}
+      100% { background: linear-gradient(140deg, #010f32 0%, #0c044d 100%);}
+    }
+    /* Responsive for smaller screens */
+    @media (max-width: 680px) {
+      .skills-list {
+        flex-direction: column;
+        align-items: center;
+      }
+      section {
+        margin: 27px 2vw 35px 2vw;
+        padding: 40px 7vw 25px 7vw;
+      }
+      #intro-screen h1 { font-size: 32px;}
+    }
+    @media (max-width: 480px) {
+      #main-content, header, section { padding-left: 0; padding-right: 0;}
+      .skills-list li { padding: 10px 10px; }
+      .project,.education-item { padding: 16px; font-size: .98em;}
+      header { flex-direction: column; gap: 6px;}
+      nav { gap: 9px;}
+    }
+  </style>
+</head>
+<body>
+  <div id="intro-screen">
+    <div class="welcome-3d">
+      <span class="welcome-gesture">👋</span>
+      <h1>Welcome<br>to<br>Madhaw's Portfolio!</h1>
+    </div>
+    <button id="enter-btn">Enter Portfolio 🚀</button>
+  </div>
+  <div id="main-content">
+    <header>
+      <h1>Madhaw Verma</h1>
+      <nav>
+        <a href="#about" title="About">📘</a>
+        <a href="#education" title="Education">🎓</a>
+        <a href="#skills" title="Skills">🛠️</a>
+        <a href="#contact" title="Contact">📞</a>
+      </nav>
+      <div class="action-buttons">
+        <button class="hire-button" onclick="speak('Thank you for your interest!'); window.open('https://wa.me/918770152422'); setTimeout(()=>window.open('tel:+918770152422'),1000); setTimeout(()=>window.open('sms:+917354697610'),2000)">Hire Me</button>
+        <button class="resume-button" onclick="window.open('https://drive.google.com/your-resume-link-here','_blank')">Resume</button>
+      </div>
+    </header>
+    <section id="about">
+      <h2>About Me</h2>
+      <p>
+        I am a passionate Software Developer & Data Analyst.
+        <br />I enjoy building efficient and elegant solutions for modern problems.
+        <br />I'm always curious to learn new technologies and push my limits.
+      </p>
+    </section>
+    <section id="skills">
+      <h2>Skills</h2>
+      <ul class="skills-list">
+        <li>HTML</li><li>CSS</li><li>JavaScript</li><li>Python</li><li>React</li><li>Node.js</li><li>Express.js</li><li>MongoDB</li><li>SQL</li><li>Data Analytics</li><li>GenAI</li><li>Prompt Engineering</li><li>AI/ML</li><li>Critical Thinking in AI</li>
+      </ul>
+    </section>
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="project">
+        <h3>My Portfolio</h3>
+        <p>This personal portfolio website (you're viewing now) — made using HTML, CSS, JS, and 3D styled effects to showcase my work.</p>
+      </div>
+    </section>
+    <section id="education">
+      <h2>Certificates</h2>
+      <div class="education-item">
+        <h4>Deloitte Australia Data Analytics Job Simulation – Forage</h4>
+        <p>Completed: November 2025</p>
+        <ul>
+          <li>Completed Deloitte job simulation involving data analysis and forensic technology</li>
+          <li>Created a data dashboard using Tableau</li>
+          <li>Used Excel to classify data and draw business conclusions</li>
+        </ul>
+        <a href="#" target="_blank">View Certificate 🔗</a>
+      </div>
+      <div class="education-item">
+        <h4>Tata Group Data Analytics Job Simulation – Forage</h4>
+        <p>Completed: November 2025</p>
+        <ul>
+          <li>AI-powered EDA & risk insight extraction</li>
+          <li>Delinquency prediction model strategy using GenAI</li>
+          <li>Ethical AI-driven automation workflow design</li>
+          <li>Financial services analytics and insight reporting</li>
+        </ul>
+        <a href="#" target="_blank">View Certificate 🔗</a>
+      </div>
+      <div class="education-item">
+        <h4>AWS Fundamentals for Beginners – Simplilearn</h4>
+        <ul>
+          <li>Learned cloud computing basics (EC2, S3, IAM, Lambda)</li>
+          <li>Understanding of scalable & secure cloud infrastructure</li>
+        </ul>
+        <a href="#" target="_blank">View Certificate 🔗</a>
+      </div>
+      <h2>Education</h2>
+      <div class="education-item">
+        <h4>B.Tech in Computer Science</h4>
+        <p>RGPV Bhopal (2021–2025) | CGPA: 7.14</p>
+        <a href="https://www.rgpv.ac.in" target="_blank">Visit RGPV</a>
+      </div>
+      <div class="education-item">
+        <h4>12th - MP Board</h4>
+        <p>2021 | 81.40%</p>
+        <a href="https://mpbse.nic.in" target="_blank">MPBSE</a>
+      </div>
+      <div class="education-item">
+        <h4>10th - MP Board</h4>
+        <p>2019 | 82.80%</p>
+        <a href="https://mpbse.nic.in" target="_blank">MPBSE</a>
+      </div>
+    </section>
+    <section id="contact">
+      <h2>Contact Me</h2>
+      <div class="social-icons">
+        <a href="tel:+918770152422" title="Call">📞</a>
+        <a href="sms:+917354697610" title="Alt SMS">💬</a>
+        <a href="mailto:madhawvearma@gmail.com" title="Email">✉️</a>
+        <a href="https://wa.me/918770152422" target="_blank" title="WhatsApp">🟢</a>
+        <a href="https://github.com/madhawverma" target="_blank" title="GitHub">🐱</a>
+        <a href="https://linkedin.com/in/madhawverma" target="_blank" title="LinkedIn">🔗</a>
+        <a href="https://instagram.com/madhaw.18" target="_blank" title="Instagram">📸</a>
+        <a href="https://youtube.com/@madhawverma" target="_blank" title="YouTube">📺</a>
+      </div>
+    </section>
+    <footer>
+      <p>&copy; 2025 Madhaw Verma. All rights reserved.</p>
+    </footer>
+  </div>
+  <!-- GSAP for extra smooth 3D entrance (optional, CDN hosted) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+    function speak(text) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      speechSynthesis.speak(utterance);
+    }
+    // 3D animated intro-out + "enter" click
+    document.getElementById("enter-btn").onclick = function () {
+      speak("Thank you for visiting, welcome to my portfolio!");
+      // Animate intro screen 3D out
+      gsap.to("#intro-screen", {duration: 1.1, rotateY: 60, scale: 0.2, opacity: 0, ease:"power2.in", onComplete: function() {
+        document.getElementById("intro-screen").style.display = "none";
+        const main = document.getElementById("main-content");
+        main.style.display = "block";
+        gsap.fromTo(main, {rotateY: -50, scale: 0.65, opacity: 0}, {duration:1.3, rotateY:0, scale:1, opacity:1, ease:"power3.out"});
+        main.classList.add("show-main");
+      }});
+    };
+    // floating glow particle - fun animated background (bonus)
+    for(let i=0; i<16; i++){
+      const bubble = document.createElement('div');
+      bubble.className = 'bubble3d';
+      Object.assign(bubble.style, {
+        position: 'fixed',
+        left: `${Math.random()*100}vw`,
+        top: `${Math.random()*100}vh`,
+        width: `${12 + Math.random()*28}px`,
+        height: `${12 + Math.random()*28}px`,
+        borderRadius: '55%',
+        background: (i%2)?'radial-gradient(circle, var(--primary) 0%, #ff00cc88 100%)':'radial-gradient(circle, var(--secondary) 0%, #00ffcc99 100%)',
+        opacity: 0.11 + Math.random()*.15,
+        zIndex: (Math.random()>0.7)?2:-1,
+        filter: 'blur(1.5px) brightness(1.8)'
+      });
+      document.body.appendChild(bubble);
+      gsap.to(bubble,{
+        y: (Math.random()>0.5 ? +1 : -1)*(80+Math.random()*150), x: (Math.random()>0.5?+1:-1)*(30+Math.random()*115),
+        duration: 8 + Math.random()*8,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+    }
+  </script>
+</body>
+</html>
